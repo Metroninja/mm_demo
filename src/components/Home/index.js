@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
+import { selectAlbum } from '../../actions/album';
 import globalStyle from '../../styles';
 
 
@@ -13,17 +14,20 @@ import globalStyle from '../../styles';
   state => ({
     albums: state.album.albums,
   }),
-  dispatch => bindActionCreators({ }, dispatch)
+  dispatch => bindActionCreators({ selectAlbum }, dispatch)
 )
 export default class Home extends Component {
 
   static propTypes = {
     albums: PropTypes.array,
+    navigation: PropTypes.object,
+    selectAlbum: PropTypes.func,
   };
 
   static navigationOptions = {
     title: 'Media Monks Demo'
   }
+
   constructor(props) {
     super(props);
 
@@ -32,7 +36,6 @@ export default class Home extends Component {
   }
 
   renderHeader(albumsLoaded) {
-    
     return albumsLoaded ? ( 
       <Text style={[styles.title, styles.header]}>User Albums</Text>
       ) : (
@@ -42,10 +45,18 @@ export default class Home extends Component {
       </View>
     )
   }
+    
+  viewAlbum(id) {
+    this.props.selectAlbum(id);
+    this.props.navigation.navigate('Album');
+  }
 
   renderAlbum(album) {
+    const notLast = album.index < this.props.albums.length - 1;
     return (
-      <TouchableOpacity style={[styles.album, album.index < this.props.albums.length - 1 && styles.seperator]}>
+      <TouchableOpacity 
+        onPress={() => this.viewAlbum(album.item.id)} 
+        style={[styles.album, notLast && styles.seperator]}>
         <Text style={styles.title}>{`User ${album.item.userId}`}</Text>
         <Text style={styles.text}>{album.item.title}</Text>
       </TouchableOpacity>

@@ -9,22 +9,29 @@ import globalStyle from '../../styles';
 
 @connect(
   state => ({
+    album: state.album.album,
+    photos: state.album.photos 
   }),
   dispatch => bindActionCreators({ }, dispatch)
 )
 export default class Album extends Component {
 
   static propTypes = {
+    album: PropTypes.object,
+    navigation: PropTypes.object,
+    photos: PropTypes.array,
   };
+
+  static navigationOptions = {
+    title: 'Album Details'
+  }
 
   constructor(props) {
     super(props);
-
-    this.state = {
-    }
   }
 
   render() {
+    const { album, photos } = this.props;
     return (
       <View>
       </View>
