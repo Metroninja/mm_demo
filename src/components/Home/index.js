@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ActivityIndicator, FlatList, StyleSheet,
-  Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import { selectAlbum } from '../../actions/album';
+import { Loading } from '../common/index';
 import globalStyle from '../../styles';
 
 
@@ -39,10 +39,7 @@ export default class Home extends Component {
     return albumsLoaded ? ( 
       <Text style={[styles.title, styles.header]}>User Albums</Text>
       ) : (
-      <View style={[styles.row, styles.loading]}>
-        <Text>Loading Albums</Text>
-        <ActivityIndicator />
-      </View>
+        <Loading text="Albums" />
     )
   }
     
@@ -83,18 +80,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  row: {
-    ...globalStyle.row,
-    justifyContent: 'center'
-  },
   title: globalStyle.title,
   text: globalStyle.text,
   header: {
     marginTop: 12,
     textAlign: 'center'
-  },
-  loading: {
-    marginTop: 12
   },
   album: {
     padding: 12,

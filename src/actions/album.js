@@ -33,7 +33,10 @@ export const getAlbums = () => {
 
 // get album details and photos associated with it in parallel
 export const getAlbum = (id) => {
-  // this one gets a bit more complex since we need to fetch album details and photos separately
+  // typically when you fetch a specific album you would get more details back
+  // so I modeled this fetch to show how to handle the need to fetch from 2 disparate endpoints
+  // obviously there are edge cases where this could break down (one fetch works, other doesn't)
+  // but I wanted to make a 'cool' example where the data is only valid if both return
   return async (dispatch) =>  {
     dispatch({ type: GET_ALBUM });
     Promise.all([fetchAlbum(id), fetchPhotos(id)]).then(results => {
