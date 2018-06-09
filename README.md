@@ -1,8 +1,16 @@
- #mm_demo
+ # mm_demo
+Demo react-native app created as a coding challenge for Media Monks
 
-
- ##Request
+## Dev time
+see [Waka time breakdown](https://wakatime.com/@5d86d707-aafc-492d-88ea-7345b222c608/projects/gttaqrehjl?start=2018-06-03&end=2018-06-09)
+Time spent - 3 hours 45 minutes.
+ ## Request
  Create a simple album list, photo list and photo detail application, using data from:
+
+ ## Test Info
+validated on 
+* iphone 6 - 10.3.1 - simulator
+* Google Pixel - 7.1.0 API 25 - simulator
 
 https://jsonplaceholder.typicode.com. Make sure that you use Redux and persist the data, so that if you close and open the app it doesn’t fetch again.
 
