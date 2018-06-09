@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { BackHandler, Platform } from 'react-native';
+import { YellowBox } from 'react-native';
 import { Provider } from 'react-redux';
 import configureStore from './configureStore';
 import Routes from './routes';
-import Dataflow from './handlers/dataflow';
 const store = configureStore();
 
 class App extends Component {
@@ -14,17 +13,14 @@ class App extends Component {
 
   componentDidMount() {
     /*** 
-     * since some of the dependent libraries still use isMounted, we can hide the yellowbox
-    * warning for the time being.  Please note nowhere in my code is the isMounted() lifecycle
-    * method used
+    * ignoring isMounted yellow box warnings, see - https://github.com/facebook/react-native/issues/18868
     ***/
-    console.ignoredYellowBox = ['Warning: isMounted'];
+   YellowBox.ignoreWarnings(['Warning: isMounted', 'Warning: isMounted(...) is deprecated']);
   }
 
   render() {
     return (
       <Provider store={store}>
-        <Dataflow />
         <Routes />
       </Provider>
     );

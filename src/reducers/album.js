@@ -1,4 +1,5 @@
-import * as Actions from '../actions/albums';
+import * as Actions from '../actions/album';
+import { AsyncStorage } from 'react-native';
 
 const initialState = {
   fetching: false,
@@ -6,7 +7,7 @@ const initialState = {
   error: '',
 }
 
-export const ALBUMS = (state = initialState, action) => {
+export const album = (state = initialState, action) => {
   switch (action.type) {
     case Actions.SET_ALBUMS:
       return {
@@ -22,6 +23,9 @@ export const ALBUMS = (state = initialState, action) => {
       };
       break;
     case Actions.GET_ALBUMS_SUCCESS:
+      // no need to await and hold up the reducer since we don't need the stored version
+      // until app reloads
+      AsyncStorage.setItem('@MediaMonks_Demo:albums', JSON.stringify(action.result));
       return {
         ...state,
         fetching: false,
