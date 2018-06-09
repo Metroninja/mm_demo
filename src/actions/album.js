@@ -47,7 +47,7 @@ export const getAlbum = (id) => {
 };
 
 // get picture details
-export const getPicture = (id) => {
+export const getPhoto = (id) => {
   return async (dispatch) =>  {
     dispatch({ type: GET_PHOTO });
     try {
@@ -75,13 +75,12 @@ export const setPhoto = (photo) => {
 export const selectAlbum = (albumId) => {
   return (dispatch) => dispatch({type: SELECT_ALBUM, albumId});
 }
-export const selectPicture = (photoId) => {
+export const selectPhoto = (photoId) => {
   return (dispatch) => dispatch({type: SELECT_PHOTO, photoId});
 }
 
 //helper fetch methods for Promise.all
 const fetchAlbum = async (id) => {
-  console.log('fetch album method', id)
   try {
     const response = await fetch(`https://jsonplaceholder.typicode.com/albums/${id}`);
     const result = await response.json();

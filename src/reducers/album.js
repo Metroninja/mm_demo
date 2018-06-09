@@ -17,14 +17,12 @@ export const album = (state = initialState, action) => {
     case Actions.SELECT_ALBUM:
       return {
         ...state,
-        album: {},
         albumId: action.albumId,
       }
       break;
     case Actions.SELECT_PHOTO:
       return {
         ...state,
-        photo: {},
         photoId: action.photoId,
       }
       break;
@@ -53,14 +51,11 @@ export const album = (state = initialState, action) => {
         ...state,
         error: '',
         fetching: true,
-        photos: [],
-        album: {}
       };
       break;
     case Actions.GET_PHOTO:
       return {
         ...state,
-        photo: {},
         fetching: true,
       }
       break;
@@ -84,10 +79,10 @@ export const album = (state = initialState, action) => {
       }
       break;
     case Actions.GET_PHOTO_SUCCESS:
-        AsyncStorage.setItem(`@MediaMonks_Demo:photo_${state.photoId}`, JSON.stringify(action.photo));
+        AsyncStorage.setItem(`@MediaMonks_Demo:photo_${state.photoId}`, JSON.stringify(action.result));
         return {
           ...state,
-          photo: action.photo
+          photo: action.result
         }
         break;
     case Actions.GET_ALBUM_FAILURE:

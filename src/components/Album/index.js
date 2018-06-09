@@ -4,6 +4,7 @@ import { Image, ScrollView, StyleSheet,
   Text, TouchableOpacity, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { isEmpty } from 'lodash';
 
 import { Details, Loading, Photos } from '../common';
 import globalStyle from '../../styles';
@@ -17,6 +18,7 @@ import globalStyle from '../../styles';
 @connect(
   state => ({
     album: state.album.album,
+    albumId: state.album.albumId,
     photos: state.album.photos 
   }),
   dispatch => bindActionCreators({ }, dispatch)
@@ -25,6 +27,7 @@ export default class Album extends Component {
 
   static propTypes = {
     album: PropTypes.object,
+    albumId: PropTypes.string,
     navigation: PropTypes.object,
     photos: PropTypes.array,
   };
@@ -38,12 +41,12 @@ export default class Album extends Component {
   }
 
   render() {
-    const { album, photos } = this.props;
-    console.log('album', album, photos);
+    const { album, albumId, photos } = this.props;
     return (
       <ScrollView style={styles.container}>
-        {photos.length === 0 && <Loading text="Album" />}
-        {!!photos.length && (
+        {isEmpty(album) || album.id !== albumId ? (
+          <Loading text="Album" />
+        ) : (
           <View>
             <Details title={`Album id ${album.id}`} text={album.title} />
             <Photos photos={photos} />

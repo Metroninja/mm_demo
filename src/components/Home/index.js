@@ -54,7 +54,7 @@ export default class Home extends Component {
       <TouchableOpacity 
         onPress={() => this.viewAlbum(album.item.id)} 
         style={[styles.album, notLast && styles.seperator]}>
-        <Text style={styles.title}>{`User ${album.item.userId}`}</Text>
+        <Text style={styles.title}>{`User ${album.item.userId} Album ${album.item.id}`}</Text>
         <Text style={styles.text}>{album.item.title}</Text>
       </TouchableOpacity>
     )

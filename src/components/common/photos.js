@@ -6,6 +6,7 @@ import { withNavigation } from 'react-navigation';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import { selectPhoto } from '../../actions/album';
 import globalStyle from '../../styles';
 
 // This is in essence a completely blank file used for copy pasta for each new
@@ -13,13 +14,14 @@ import globalStyle from '../../styles';
 
 @connect(
   state => ({}),
-  dispatch => bindActionCreators({ }, dispatch)
+  dispatch => bindActionCreators({ selectPhoto }, dispatch)
 )
 @withNavigation
 export default class Photos extends Component {
 
   static propTypes = {
     photos: PropTypes.array,
+    selectPhoto: PropTypes.func,
   };
 
   constructor(props) {
@@ -28,13 +30,20 @@ export default class Photos extends Component {
     this.state = {
     }
   }
+  
+  viewPhoto(photo) {
+    this.props.selectPhoto(photo.id);
+    this.props.navigation.navigate('Photo');
+  }
 
   render() {
     return (
       <View style={styles.container}>
         {this.props.photos.map(photo => (
           <View style={styles.photo} key={photo.id}>
-            <Image style={styles.image} source={{uri: photo.thumbnailUrl.replace('http', 'https')}} />
+            <TouchableOpacity onPress={() => this.viewPhoto(photo)}>
+              <Image style={styles.image} source={{uri: photo.thumbnailUrl.replace('http', 'https')}} />
+            </TouchableOpacity>
           </View>
         ))}
       </View>
@@ -58,7 +67,5 @@ const styles = StyleSheet.create({
     width: 75,
     height: 75,
     resizeMode: 'contain',
-    
   }
-
 });
